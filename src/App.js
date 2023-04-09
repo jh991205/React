@@ -2,10 +2,12 @@ import { useState, useEffect } from 'react';
 import './App.css';
 
 function App() {
+  //state
   const [apiData, setApiData] = useState({});
   const apiKey = process.env.REACT_APP_API_KEY;
   const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${'shanghai'}&appid=${apiKey}`;
 
+  //data
   useEffect(() => {
     fetch(apiUrl)
       .then((res) => res.json())
