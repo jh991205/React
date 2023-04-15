@@ -1,24 +1,48 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import './App.css';
+import SearchBar from './components/searchBar';
+import WeatherCard from './components/weatherCard';
 
 function App() {
-  //state
-  const [apiData, setApiData] = useState({});
-  const apiKey = process.env.REACT_APP_API_KEY;
-  const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${'shanghai'}&appid=${apiKey}`;
+  const [location, setLocation] = useState('Shanghai');
+  const [location1, setLocation1] = useState('WenZhou');
 
-  //data
-  useEffect(() => {
-    fetch(apiUrl)
-      .then((res) => res.json())
-      .then((data) => setApiData(data));
-  }, [apiUrl]);
+  const handleInputChange = (event) => {
+    setLocation(event.target.value);
+  };
+  const handleInputChange1 = (event) => {
+    setLocation1(event.target.value);
+  };
 
-  console.log(apiData)
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+    setLocation(location);
+  };
+
+  const handleFormSubmit1 = (event) => {
+    event.preventDefault();
+    setLocation1(location1);
+  };
 
   return (
-    <div className="App">
-      
+    <div>
+      <header>
+        <h2>React Weather App</h2>
+      </header>
+      <div>
+        <SearchBar
+          location={location}
+          onInputChange={handleInputChange}
+          onFormSubmit={handleFormSubmit}
+        />
+        <WeatherCard location={location} />
+        <SearchBar
+          location={location1}
+          onInputChange={handleInputChange1}
+          onFormSubmit={handleFormSubmit1}
+        />
+        <WeatherCard location={location1} />
+      </div>
     </div>
   );
 }
